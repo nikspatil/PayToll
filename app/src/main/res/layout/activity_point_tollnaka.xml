@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".point_tollnaka"
+    android:background="@drawable/svg">
+
+    <TextView
+        android:id="@+id/travel_que"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How would you like to travel?"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:layout_marginStart="50dp"
+        android:textColor="@color/black"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/source_card"
+        android:layout_below="@id/travel_que"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <EditText
+            android:id="@+id/et_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/travel_que"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/ic_baseline_location_on_24"
+            android:hint="             Source"
+            android:padding="10dp"
+            android:textSize="20sp"/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/destination_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/source_card"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+        <EditText
+            android:drawableLeft="@drawable/ic_baseline_location_on_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_destination"
+            android:hint="             Destination"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:textSize="20sp">
+        </EditText>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tollplazacard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/destination_card"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+        <EditText
+        android:id="@+id/et_tollplaza"
+            android:drawableLeft="@drawable/ic_baseline_toll_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="            Search Toll "
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textSize="20sp">
+        </EditText>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/routebtnlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tollplazacard">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Route"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:id="@+id/showdirection" />
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_distance"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 km"
+            android:id="@+id/tvDistance" />
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_clock"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 min"
+            android:id="@+id/tvDuration" />
+    </LinearLayout>
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:context=".point_tollnaka"
+        android:layout_below="@+id/routebtnlayout"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_baseline_payment_24"
+        app:backgroundTint="@color/purple_500"
+        />
+
+
+</RelativeLayout>

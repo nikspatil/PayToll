@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/merchant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Merchant Name"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/upii_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UPIID"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="160dp" />
+    <LinearLayout
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/rssymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="45dp"
+        android:layout_gravity="right"
+        android:textStyle="bold"
+        android:text="@string/Rs"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:textColor="@color/black"
+        />
+
+        <EditText
+            android:id="@+id/payamount"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:gravity="right"
+            android:inputType="number"
+            android:text=" "
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/paybtn"
+        android:layout_width="133dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_corners"
+        android:text="Pay"
+         />
+
+
+
+
+</LinearLayout>

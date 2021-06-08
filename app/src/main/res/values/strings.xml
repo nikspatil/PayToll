@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">PayToll</string>
+    <!-- QR Code related strings -->
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="ok">OK</string>
+    <string name="Rs">\u20B9</string>
+    <string name="title_activity_point_tollnaka">Map</string>
+
+    <!-- Maps -->
+    <string name="map_key" translatable="false">AIzaSyAEN3KGKq99tBodPGpGNkAFBeR5onDwPOU</string>
+
+
+    <string name="register">REGISTER</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_name_hint">Name</string>
+    <string name="login_mobile_number_hint">Mobile Number</string>
+</resources>

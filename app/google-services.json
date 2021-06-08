@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "133872269854",
+    "project_id": "paytoll-63e63",
+    "storage_bucket": "paytoll-63e63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133872269854:android:257612e08cb6575fe08c0f",
+        "android_client_info": {
+          "package_name": "com.example.paytoll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133872269854-b64qmeiidb9iocc49avgr1v6ma5a716b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBocuDgsr6VZleiE9wfUUx4LMq1oF5lPb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133872269854-b64qmeiidb9iocc49avgr1v6ma5a716b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
