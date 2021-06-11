@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -70,12 +72,14 @@ public class toll_payment_history extends AppCompatActivity {
 
                     List<Payment> payments = razorpay.Payments.fetchAll(paymentRequest);
                     System.out.println("Total transaction records:"+payments);
+                    int count = 0;
                     paymentsList = new ArrayList<>();
                     for(int i=0; i< payments.size(); i++) {
 
                         fetchPaymentsModelClass= new FetchPaymentsModelClass();
                         String getEmailFromJson = payments.get(i).get("email");
                         if(getEmail.equals(getEmailFromJson)){
+                            count++;
                             String gettransactionId = payments.get(i).get("id");
                             String gettransactionStatus = payments.get(i).get("status");
                             int amountinpaisa= payments.get(i).get("amount");
@@ -92,12 +96,43 @@ public class toll_payment_history extends AppCompatActivity {
                             fetchPaymentsModelClass.setDate(gettransactionDate);
                             paymentsList.add(fetchPaymentsModelClass);
                         }else{
-                            //Toast.makeText(getApplicationContext(), "No records Found!!", Toast.LENGTH_LONG).show();
                             System.out.println("No records found!!");
+                            System.out.println("count="+count);
                         }
 
                     }
-                    System.out.println("All matched records are "+paymentsList.size());
+                    if(count >= 1){
+
+                        System.out.println("All matched records are "+paymentsList.size());
+                        System.out.println("count="+count);
+
+                    }
+                    if(count == 0){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                pd.dismiss();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(
+                                        toll_payment_history.this);
+                                builder.setTitle("Alert");
+                                builder.setMessage("No records found!!!");
+                                builder.setPositiveButton("OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,
+                                                                int which) {
+                                                Intent intent = new Intent(toll_payment_history.this, tollpay_user_dashboard.class);
+                                                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                                //Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                builder.show();
+                                //finish();
+                                //Toast.makeText(getApplicationContext(), "No records Found!!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    }
                     putDataInRecyclerView(paymentsList);
                 } catch (RazorpayException | JSONException e) {
                     // Handle Exception
@@ -120,8 +155,6 @@ public class toll_payment_history extends AppCompatActivity {
                 recyclerView.setAdapter(adaptery);
             }
         });
-
-
 
 
     }

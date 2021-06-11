@@ -1,6 +1,7 @@
 package com.example.paytoll;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +58,16 @@ public class tollpay_user_dashboard extends AppCompatActivity{
                 intent.putExtra("Email", getEmail);
                 startActivity(intent);
                 //startActivity(new Intent(tollpay_user_dashboard.this,toll_payment_history.class));
+            }
+        });
+
+        demoId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=unYt-qraBnI"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setPackage("com.google.android.youtube");
+                startActivity(intent);
             }
         });
 

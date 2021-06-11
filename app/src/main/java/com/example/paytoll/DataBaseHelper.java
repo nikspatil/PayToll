@@ -77,7 +77,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(COL_2, username);
             values.put(COL_4, password);
             values.put(COL_3,email);
-            //values.put(Users.TOLL_PASSWORD, updateUser.getPassword());
             //update using user id
             String[] hello = {String.valueOf(username)};
             System.out.print("Hello string "+ hello);

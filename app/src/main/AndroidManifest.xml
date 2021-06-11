@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PayToll">
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".NoRecordsFound"></activity>
+        <activity android:name=".EditProfile" />
         <activity android:name=".toll_payment_history" />
         <activity android:name=".get_toll_details_between_two_stations" />
         <activity android:name=".tollpay_user_dashboard" />
