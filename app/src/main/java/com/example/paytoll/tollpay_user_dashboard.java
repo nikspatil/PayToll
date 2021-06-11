@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class tollpay_user_dashboard extends AppCompatActivity{
 
+    TextView loginusername;
     CardView profileId,quickpayId,tollplazarouteId,historyId,demoId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +24,17 @@ public class tollpay_user_dashboard extends AppCompatActivity{
         quickpayId =(CardView)findViewById(R.id.quickpayId);
         tollplazarouteId =(CardView)findViewById(R.id.tollplzaenroute);
         historyId =(CardView)findViewById(R.id.tollpayhistory);
+        loginusername= (TextView)findViewById(R.id.username);
         demoId =(CardView)findViewById(R.id.demoId);
 
+        Intent intent = getIntent();
+        String getUserName = intent.getStringExtra("Username");
+        String getEmail = intent.getStringExtra("Email");
+        loginusername.setText(getUserName);
         profileId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(this,workerprofile.class));
+                startActivity(new Intent(tollpay_user_dashboard.this, EditProfile.class));
             }
         });
 
@@ -46,7 +53,10 @@ public class tollpay_user_dashboard extends AppCompatActivity{
         historyId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(tollpay_user_dashboard.this,toll_payment_history.class));
+                Intent intent = new Intent(getApplicationContext(), toll_payment_history.class);
+                intent.putExtra("Email", getEmail);
+                startActivity(intent);
+                //startActivity(new Intent(tollpay_user_dashboard.this,toll_payment_history.class));
             }
         });
 
