@@ -71,10 +71,8 @@ public class getPayeeDetails extends AppCompatActivity implements PaymentResultL
             public void onClick(View view) {
                 if(payamount.getText().toString().equals("")){
                     Toast.makeText(getPayeeDetails.this, "Amount is empty", Toast.LENGTH_LONG).show();
-
                 }
                 else{
-
                     startPayment();
                 }
             }
@@ -111,12 +109,6 @@ public class getPayeeDetails extends AppCompatActivity implements PaymentResultL
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         Toast.makeText(this, "Payement successfull", Toast.LENGTH_LONG).show();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Payment ID");
-//        builder.setMessage(razorpayPaymentID);
-//        //fetchPaymentDetails();
-//        AlertDialog alertDialog = builder.create();
-//        builder.show();
         startActivity(new Intent(getPayeeDetails.this , paymentsuccessfull.class));
     }
 

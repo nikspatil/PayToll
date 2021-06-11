@@ -18,8 +18,11 @@ public class paymentsuccessfull extends AppCompatActivity {
         success.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(paymentsuccessfull.this , point_tollnaka.class));
-                finish();
+//                startActivity(new Intent(paymentsuccessfull.this , point_tollnaka.class));
+//                finish();
+                Intent intent = new Intent(paymentsuccessfull.this, point_tollnaka.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

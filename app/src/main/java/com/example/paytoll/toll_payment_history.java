@@ -90,6 +90,12 @@ public class toll_payment_history extends AppCompatActivity {
                             String gettransactionDate = sdf.format(new Date(String.valueOf(transactiondate)));
                             // converting amount to string
                             String gettransactionamount = String.valueOf(trasamount);
+                            System.out.println("Transaction status"+ gettransactionStatus);
+                            if(gettransactionStatus.equals("authorized") || gettransactionStatus.equals("captured")){
+                                System.out.println("Inside replace");
+                                //gettransactionStatus.replace("authorized","Completed");
+                                gettransactionStatus = "Completed";
+                            }
                             fetchPaymentsModelClass.setId(gettransactionId);
                             fetchPaymentsModelClass.setStatus(gettransactionStatus);
                             fetchPaymentsModelClass.setAmount(gettransactionamount);
