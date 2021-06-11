@@ -52,13 +52,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/siguppassword" />
-
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="500dp"
-        android:gravity="center">
+        android:gravity="center|bottom"
+        android:layout_marginBottom="100dp">
     <Button
         android:id="@+id/signupbutton"
         android:layout_width="252dp"
@@ -68,7 +66,6 @@
         android:textColor="#fff"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"></Button>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
