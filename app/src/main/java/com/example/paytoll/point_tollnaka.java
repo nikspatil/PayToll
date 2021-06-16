@@ -22,7 +22,11 @@ import androidx.annotation.NonNull;
 
 import com.example.paytoll.DirectionModules.DirectionFinderListener;
 import com.example.paytoll.DirectionModules.Route;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,8 +71,8 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
     List<Polyline> polylinePaths = new ArrayList<>();
     ProgressDialog progressDialog;
     FloatingActionButton fabbtn;
-
-    ArrayList<LatLng> tollMarkers =  new ArrayList<LatLng>();
+    SupportMapFragment mapFragment;
+    ArrayList<LatLng> tollMarkers = new ArrayList<LatLng>();
     List<LatLng> sourceMarkers = new ArrayList<LatLng>();
     List<LatLng> destiMarkers = new ArrayList<LatLng>();
 
@@ -78,14 +82,14 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_point_tollnaka);
         //MapsInitializer.initialize(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         Etsource = (EditText) findViewById(R.id.et_source);
         Etdestination = (EditText) findViewById(R.id.et_destination);
-        showRoute = (Button)findViewById(R.id.showdirection);
+        showRoute = (Button) findViewById(R.id.showdirection);
         fabbtn = (FloatingActionButton) findViewById(R.id.fab);
-        etTOLL = (EditText)findViewById(R.id.et_tollplaza);
+        etTOLL = (EditText) findViewById(R.id.et_tollplaza);
 
 
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
@@ -109,6 +113,8 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
         Etdestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tollMarkers.clear();
+                mMap.clear();
                 stype = "destination";
                 List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS,
                         Place.Field.LAT_LNG);
@@ -146,22 +152,11 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
         fabbtn.setOnClickListener(new View.OnClickListener() {
             String origin = Etsource.getText().toString();
             String destination = Etdestination.getText().toString();
-            String tollplaza  = etTOLL.getText().toString();
+            String tollplaza = etTOLL.getText().toString();
+
             @Override
             public void onClick(View view) {
-//                if(origin.isEmpty()){
-//                    Toast.makeText(point_tollnaka.this, "Please enter source location", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                if(destination.isEmpty()){
-//                    Toast.makeText(point_tollnaka.this, "Please enter destination location", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                if(tollplaza.isEmpty()){
-//                    Toast.makeText(point_tollnaka.this,"Please enter toll plaza point", Toast.LENGTH_LONG).show();
-//                }else{
-                startActivity(new Intent(point_tollnaka.this , scanqrCode.class));
-//                }
+                startActivity(new Intent(point_tollnaka.this, scanqrCode.class));
 
             }
         });
@@ -171,22 +166,21 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
     private void showToll() {
         String origin = Etsource.getText().toString();
         String destination = Etdestination.getText().toString();
-        String tollplaza  = etTOLL.getText().toString();
-        if(origin.isEmpty()){
+        String tollplaza = etTOLL.getText().toString();
+        if (origin.isEmpty()) {
             Toast.makeText(this, "Please enter source location", Toast.LENGTH_LONG).show();
             return;
         }
-        if(destination.isEmpty()){
+        if (destination.isEmpty()) {
             Toast.makeText(this, "Please enter destination location", Toast.LENGTH_LONG).show();
             return;
         }
-        if(tollplaza.isEmpty()){
-            Toast.makeText(this,"Please enter toll plaza point", Toast.LENGTH_LONG).show();
+        if (tollplaza.isEmpty()) {
+            Toast.makeText(this, "Please enter toll plaza point", Toast.LENGTH_LONG).show();
         }
 
         MarkerOptions tolloptions = new MarkerOptions();
-        for(int i=0;i<tollMarkers.size();i++)
-        {
+        for (int i = 0; i < tollMarkers.size(); i++) {
             tolloptions.position(tollMarkers.get(i));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tollMarkers.get(i), 10));
             mMap.addMarker(tolloptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.toll_paid_icon)));
@@ -194,26 +188,25 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
     }
 
 
-
-
     private void sendRequest() {
         String origin = Etsource.getText().toString();
         String destination = Etdestination.getText().toString();
-        if(origin.isEmpty()){
+        if (origin.isEmpty()) {
             Toast.makeText(this, "Please enter source location", Toast.LENGTH_LONG).show();
             return;
         }
-        if(destination.isEmpty()){
+        if (destination.isEmpty()) {
             Toast.makeText(this, "Please enter destination location", Toast.LENGTH_LONG).show();
             return;
         }
-        try{
+        try {
             System.out.println("Inside direction finder");
             new DirectionFinder(point_tollnaka.this, origin, destination).execute();
-        }catch (UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onDirectionFinderStart() {
         progressDialog = ProgressDialog.show(this, "Please wait.",
@@ -232,7 +225,7 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
         }
 
         if (polylinePaths != null) {
-            for (Polyline polyline:polylinePaths ) {
+            for (Polyline polyline : polylinePaths) {
                 polyline.remove();
             }
         }
@@ -248,7 +241,7 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
 
         for (Route route : routes) {
             System.out.println("inside route for loop");
-            System.out.println("Routes:"+route);
+            System.out.println("Routes:" + route);
             System.out.println(route.duration);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 10));
@@ -278,6 +271,11 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
 
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -290,19 +288,17 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
                 sourceMarkers.clear();
                 sourceMarkers.add(place.getLatLng());
 
-            } else if(stype.equals("destination"))  {
+            } else if (stype.equals("destination")) {
                 flag++;
                 Etdestination.setText(place.getAddress());
                 destiMarkers.clear();
                 destiMarkers.add(place.getLatLng());
-            }else{
+            } else {
                 System.out.println("Inside toll plaza on activity result");
                 flag++;
                 etTOLL.setText(place.getAddress());
-                //tollMarkers.clear();
                 tollMarkers.add(place.getLatLng());
-
-                System.out.println("Toll markers list"+tollMarkers);
+                System.out.println("Toll markers list" + tollMarkers);
                 showToll();
             }
         }
@@ -322,45 +318,28 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
                 if (location != null) {
                     currentLocation = location;
                     Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-                    assert supportMapFragment != null;
-                    supportMapFragment.getMapAsync(point_tollnaka.this);
+                    //SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                    LatLng latlong = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlong, 10));
+                    assert mapFragment != null;
+                    mapFragment.getMapAsync(point_tollnaka.this);
                 }
             }
         });
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng latlong = new LatLng(16.691307, 74.244865);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlong, 10));
-        originMarkers.add(mMap.addMarker(new MarkerOptions()
-                .title("Yor are here")
-                .position(latlong)));
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        mMap.setMyLocationEnabled(true);
         googleMap.setMyLocationEnabled(true);
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -372,7 +351,5 @@ public class point_tollnaka extends FragmentActivity implements OnMapReadyCallba
                 break;
         }
     }
-
-
 
 }

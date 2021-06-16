@@ -1,5 +1,7 @@
 package com.example.paytoll.DirectionModules;
 
+import android.location.Location;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -11,4 +13,5 @@ public interface DirectionFinderListener {
     void onDirectionFinderStart();
     void onDirectionFinderSuccess(List<Route> route);
 
+    void onLocationChanged(Location location);
 }

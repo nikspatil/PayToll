@@ -41,8 +41,9 @@ public class EditProfile extends AppCompatActivity {
                 String passnew = passwordedit.getText().toString();
                 boolean var = myDB.updateUser(usernewName, passnew, emailnew);
                 if (var) {
-                    Toast.makeText(EditProfile.this, "User Data Updated  Successfully !!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfile.this, "Profile Updated  Successfully !!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(EditProfile.this, tollpay_user_dashboard.class));
+                    finish();
                 }
                 else {
                     Toast.makeText(EditProfile.this, "Update Error !!", Toast.LENGTH_SHORT).show();

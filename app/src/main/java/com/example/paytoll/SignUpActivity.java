@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean validateFirst = validate();
                 if(validateFirst){
-                    boolean var = myDB.registerUser(usernameSignUp.getText().toString() , emailSignUp.getText().toString() , passwordSignUp.getText().toString());
+                    boolean var = myDB.registerUser(usernameSignUp.getText().toString() , emailSignUp.getText().toString() , passwordSignUp.getText().toString(), vehicleSignUp.getText().toString());
                     if(var){
                         Toast.makeText(SignUpActivity.this, "User Registered Successfully !!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SignUpActivity.this , LoginActivity.class));

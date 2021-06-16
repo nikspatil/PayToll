@@ -23,7 +23,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , USERNAME TEXT , EMAIL TEXT , PASSWORD TEXT )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , USERNAME TEXT , EMAIL TEXT , PASSWORD TEXT)");
 
     }
 
@@ -33,14 +33,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean registerUser(String username , String email , String password){
+    public boolean registerUser(String username , String email , String password, String vehicleNumber){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_2 , username);
         values.put(COL_3 , email);
         values.put(COL_4 , password);
-
         long result = db.insert(TABLE_NAME , null , values);
         if(result == -1)
             return false;
@@ -78,7 +77,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(COL_4, password);
             values.put(COL_3,email);
             //update using user id
-            String[] hello = {String.valueOf(username)};
+            String[] hello = {String.valueOf(email)};
             System.out.print("Hello string "+ hello);
             result = db.update(TABLE_NAME, values, COL_3 + "=? ", hello) > 0;
         } catch (Exception ex) {
